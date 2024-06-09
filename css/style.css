@@ -1,0 +1,48 @@
+body {
+    background-color: rgb(108, 255, 248);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+main {
+    margin-top: -15%;
+    background-color: #303080ff;
+    padding-block: 10px;
+    padding-inline: 20px;
+    border-radius: 20px;
+}
+
+header {
+    padding-bottom: 20px;
+    img {
+        width: 400px;
+    }
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    input {
+        background-color: #daffffff;
+        height: 24px;
+        width: 200px;
+        border-radius: 5px;
+        border-bottom: 2px solid rgb(20, 20, 83);
+        border-top: 2px solid rgb(138, 255, 255);
+    }
+
+    #submit {
+        width: 100px;
+        background-color: #303080ff;
+        color: #daffffff;
+        border: 2px solid #00ffffff;
+        border-bottom: 2px solid rgb(25, 131, 131);
+        border-top: 2px solid rgb(138, 255, 255);
+    }
+}
