@@ -3,6 +3,9 @@ body * {
 }
 
 body {
+    --highlight-blue: aqua;
+    --dark-purple: #303080ff;
+
     display: grid;
     grid-template-columns: 1fr 8fr 1fr;
     grid-template-rows: 1fr 19fr;
@@ -34,23 +37,6 @@ body {
         }
     }
 
-    nav {
-        grid-area: nav;
-        background-color: rgb(204, 204, 204);
-
-        ul {
-            list-style: none;
-            padding: 0%;
-            margin-left: 10px;
-            margin-top: 50px;
-
-            li {
-
-                margin-bottom: 20px;
-            }
-        }
-    }
-
     main {
         grid-area: main;
         display: grid;
@@ -64,28 +50,76 @@ body {
 
         #patient {
             grid-area: patient;
-            display: grid;
-            grid-gap: 10px;
-            grid-template-columns: 1fr 3fr;
-            grid-template-rows: 1fr 2fr;
-            grid-template-areas:
-                "portrait name"
-                "portrait detail-item"
-            ;
+            display: flex;
+            justify-content: center;
+
+            #interactives {
+                flex-basis: 35%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: end;
+
+                .interactive {
+                    background-color: var(--dark-purple);
+                    width: 70px;
+                    height: 70px;
+                    border-radius: 100%;
+                    text-align: center;
+                    color: aliceblue;
+                    margin: 10px;
+
+                }
+
+                .interactive:hover {
+                    background-color: var(--highlight-blue);
+                    box-shadow: 0px 0px 20px var(--dark-purple);
+                    
+                    
+                }
+
+                #messages {
+                    margin-right: 0px;
+
+                }
+
+                #tests {
+                    margin-right: 20px;
+                }
+
+                #medications {
+                    margin-right: 0px;
+                }
+
+            }
 
             #portrait {
-                grid-area: portrait;
                 border-radius: 100%;
                 padding: 10px;
+                width: 30%;
+
             }
 
-            #name {
-                grid-area: name;
+            #about {
+                flex-basis: 35%;
+
+                #name {
+                    font-size: 50px;
+                    display: inline-block;
+                    margin-left: 0%;
+
+                }
+
+                #species {
+                    color: rgb(136, 136, 136);
+                    font-size: 30px;
+                    display: inline-block;
+                    border-left: 1px solid rgb(136, 136, 136);
+                    padding-left: 5px;
+                }
             }
 
-            #details {
-                grid-area: detail-item;
-            }
+
         }
 
         #info {
@@ -110,8 +144,7 @@ body {
 
     }
 
-    aside {
-        grid-area: aside;
+    nav {
         background-color: rgb(204, 204, 204);
 
         .patient {
@@ -128,7 +161,7 @@ body {
         }
 
         #highlighted {
-            color: aqua;
+            color: var(--highlight-blue);
         }
 
     }
