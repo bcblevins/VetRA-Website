@@ -1,0 +1,54 @@
+body {
+    --primary-blue: aqua;
+    --primary-blue-shade: rgb(36, 106, 152);
+}
+
+header {
+    background-color: var(--primary-blue-shade);
+    height: 7vh;
+    padding: 5px;
+    display: flex;
+
+    #logo {
+        height: 90%;
+        margin: 5px;
+        padding-right: 20px;
+        border-right: 4px solid var(--primary-blue);
+    }
+
+    #user-name {}
+
+}
+
+div {
+    display: flex;
+
+    aside {
+        display: inline-block;
+        height: 100vh;
+        flex-basis: 10vw;
+
+        #pet-list {}
+
+    }
+
+    main {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+
+        nav {
+
+            menu {}
+
+            #portrait {
+                width: 10px;
+            }
+
+            #pet-details {}
+        }
+
+        #content {}
+    }
+
+}
