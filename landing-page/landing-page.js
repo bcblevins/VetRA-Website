@@ -63,5 +63,10 @@ messageInteractable.addEventListener("click", () => {
 
 function shrinkNav() {
     const main = document.querySelector("main");
-    main.classList.add("shrink");
+    const header = document.querySelector("header");
+    const aside = document.querySelector("aside");
+
+    main.classList.add("shrink-nav");
+    header.classList.add("shrink-header");
+    aside.classList.add("shrink-aside")
 }
