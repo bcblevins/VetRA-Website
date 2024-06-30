@@ -3,78 +3,75 @@
 body {
     --primary-blue: aqua;
     --primary-blue-shade: rgb(36, 106, 152);
+    --primary-gray: rgb(125, 146, 155);
     --aside-width: 115px;
     --body-margin: 8px;
-    --interactable-width: 70px;
+    --interactable-width: 40px;
+    --interactable-margin: 5px;
+    --light-shadow: rgb(109, 109, 109);
     font-family: var(--font-sans);
     margin: var(--body-margin);
+    background-image: var(--gradient-9);
+    min-height: 100vh;
+    height: 100%;
+
 }
 
 header {
 
-    background-color: var(--primary-blue-shade);
+    background-image: var(--gradient-7);
+    position: fixed;
     height: 7vh;
     padding: 5px;
+    padding-block: 10px;
     display: flex;
-    min-width: 115px;
+    min-width: 100vw;
 
     #logo {
         height: 90%;
         margin: 5px;
-        padding-right: 20px;
-        max-width: 120px;
+        margin-top: 0px;
+        margin-right: 20px;
+        padding: 5px;
+        max-width: var(--aside-width);
+        background-color: var(--primary-blue-shade);
+        border-radius: 5px;
+        box-shadow: 0px 0px 5px 0px var(--primary-blue);
     }
 
     #user-name {
-        margin: 0px;
+        font-size: 3vh;
+        margin-top: calc(3vh);
 
     }
 
 }
 
-
-
-aside {
-    position: absolute;
-    left: 8px;
-    top: calc(7vh + 18px);
-    width: 300px;
-    min-width: 115px;
-    height: 93vh;
-    background-color: aqua;
-    width: var(--aside-width);
-    padding: 5px;
-
-    #pet-list {
-        list-style: none;
-        padding: 0;
-        width: 90%;
-        margin-inline: 5px;
-        margin-top: 0px;
-
-        li {
-            background-color: var(--primary-blue-shade);
-            border-radius: 5px;
-            padding: 10px;
-        }
-    }
-
-}
 
 main {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
-    margin-left: calc(var(--aside-width) + var(--body-margin));
+    height: 100%;
+    padding-top: 20vh;
 
-    nav {
+
+
+    .pet-card {
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 100%;
+        padding-block: 10px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px 0px black;
+        animation: var(--animation-slide-in-up) forwards;
+        margin: 10px;
+        width: 450px;
 
-        menu {
+
+
+        .menu {
             width: 100px;
             list-style: none;
             display: flex;
@@ -83,9 +80,10 @@ main {
             align-items: end;
             padding: 0px;
             margin: 0px;
-            margin-right: 20px;
+            margin-left: 10px;
+            margin-right: 0px;
 
-            li {
+            .interactable {
                 background-color: var(--primary-blue-shade);
                 height: var(--interactable-width);
                 width: var(--interactable-width);
@@ -93,51 +91,74 @@ main {
                 text-align: center;
                 margin: 10px;
                 margin-right: 20px;
+                color: white;
+                font-size: calc(var(--interactable-width) / 1.5);
+                box-shadow: 0px 0px 5px 0px var(--light-shadow);
 
             }
 
 
-            #Msg {
+            .Msg {
                 margin-right: 0px;
             }
 
-            #Med {
+            .Med {
                 margin-right: 0px;
             }
 
             .interactable:hover {
-                width: 90px;
-                height: 90px;
-                background-color: aqua;
-                margin-block: 20px;
+                width: calc(var(--interactable-width) + 10px);
+                height: calc(var(--interactable-width) + 10px);
+                background-image: var(--gradient-7);
+                margin-block: var(--interactable-margin);
+                transition: .01s ease;
+                box-shadow: 0px 0px 10px 0px var(--light-shadow);
+                margin-block: 10px;
             }
 
         }
 
-        #portrait {
-            height: 400px;
+        .portrait {
+            height: 200px;
             border-radius: 100%;
+            box-shadow: 0px 0px 10px 0px var(--light-shadow);
 
         }
 
-        #pet-info {
+        .pet-info {
             display: flex;
             flex-direction: column;
 
-            #pet-name {
-                font-size: 3em;
+            .pet-name {
+                color: var(--primary-blue);
+                font-size: 2.5em;
                 margin: 10px;
+                margin-top: 0px;
+                padding: 10px;
+                padding-top: 0px;
+                margin-inline: 0px;
+                padding-inline: 10px;
+                -webkit-text-stroke-width: 1px;
+                -webkit-text-stroke-color: var(--primary-blue-shade);
             }
 
-            #species {
+            .pet-details {
+                border-bottom: 2px solid var(--primary-blue-shade);
+                color: var(--primary-blue-shade);
+            }
+
+            .species {
+                margin-left: 25px;
+                margin-top: 0px;
+                padding-top: 20px;
+                border-top: 5px solid var(--primary-blue-shade);
+
+            }
+
+            .sex {
                 margin-left: 20px;
             }
 
-            #sex {
-                margin-left: 17px;
-            }
-
-            #birthday {}
         }
     }
 
@@ -146,28 +167,113 @@ main {
     }
 }
 
+.message {
+    
 
+    li {
+        font-size: 30px;
+        margin: 0px;
+        list-style: none;
+        border-radius: 7px;
+        width: 50%;
+        box-shadow: 0px 0px 10px 0px black;
+
+
+        span {
+            display: inline-block;
+            background-color: rgb(170, 170, 170);
+            font-size: 1em;
+            margin: 0px;
+            width: 100%;
+            border-radius: 5px;
+            }
+
+        p {
+            font-size: 0.8em;
+            margin: 10px;
+            border-radius: 5px;
+        }
+    }
+}
 
 .shrink-nav {
-    justify-content: start;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding-top: 5px;
+    flex-direction: column;
+
+    header {
+        position: fixed;
+
+    }
 
     nav {
-        height: 15vh;
+        display: none;
+    }
 
-        #portrait {
-            height: 100%;
+    .active {
+        display: flex;
+    }
+
+
+    nav {
+        margin-left: calc(var(--aside-width) + 1vw);
+        margin-top: 0px;
+        height: 7vh;
+        box-shadow: none;
+        width: 100%;
+        border-radius: 0px;
+        justify-content: flex-start;
+
+        .portrait {
+            height: 90%;
         }
 
-        menu {
+        .portrait:hover {
+            box-shadow: 0px 0px 10px 2px var(--primary-blue);
+        }
+
+        .menu {
+            order: 1;
             flex-direction: row;
             min-width: 200px;
+            --interactable-margin: 0px;
+            --interactable-width: 40px;
 
-            li {
+            .interactable {
                 flex-shrink: 0;
-                margin: 10px;
-                height: calc(var(--interactable-width) - 30px);
-                width: calc(var(--interactable-width) - 30px);
+                margin-right: 0px;
+                height: var(--interactable-width);
+                width: var(--interactable-width);
+                background-color: var(--primary-blue);
+                color: var(--primary-blue);
+                background-image: var(--gradient-7);
+
+
             }
+
+            .interactable:hover {
+                background-image: none;
+                height: var(--interactable-width);
+                width: var(--interactable-width);
+                color: var(--primary-blue-shade);
+            }
+
+        }
+
+
+
+        .pet-info {
+            .pet-name {
+                -webkit-text-stroke-width: 0px;
+                text-shadow: 0px 0px 5px black;
+                padding-top: 10px;
+            }
+
+            .pet-name {
+                font-size: 5vh;
+            }
+
         }
 
         .pet-details {
@@ -176,10 +282,13 @@ main {
 
     }
 
+
+
 }
 
 .shrink-header {
-    width: var(--aside-width);
+
+    width: 100%;
     position: absolute;
 
     #user-name {
