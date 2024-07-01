@@ -45,7 +45,7 @@ const messages =
         {
             messageId: 2,
             subject: "Follow-up on Medication",
-            body: "Just a reminder to check if Charlie is having any side effects from her new medication. Has she reported anything unusual?",
+            body: "Is Charlie having any side effects from her new medication? Any excessive drowsiness?",
             fromUsername: "cakelly4",
             toUsername: "bblevins96",
             testId: 2,
@@ -53,8 +53,8 @@ const messages =
         },
         {
             messageId: 3,
-            subject: "Next Appointment",
-            body: "Charlie's next appointment is scheduled for next Monday at 3 PM. Please confirm if that works for you.",
+            subject: "Recheck in 2 weeks",
+            body: "Charlie's liver values are still elevated. We should recheck in 2 weeks to see if they are improving.",
             fromUsername: "cakelly4",
             toUsername: "bblevins96",
             testId: 3,
@@ -63,7 +63,7 @@ const messages =
         {
             messageId: 4,
             subject: "Lab Results",
-            body: "The latest lab results for Charlie are in. Everything looks stable, but we should continue monitoring her closely.",
+            body: "The latest lab results for Charlie are in. Liver values have improved and the rest of her bloodwork looks great.",
             fromUsername: "cakelly4",
             toUsername: "bblevins96",
             testId: 4,
@@ -72,7 +72,7 @@ const messages =
         {
             messageId: 5,
             subject: "Dietary Recommendations",
-            body: "I've attached some dietary recommendations for Charlie. Please make sure she follows them to help with her recovery.",
+            body: "Charlie's weight is up a little bit. I recommend cutting back on her food by 1/4 cup per day. Let me know if you have any questions.",
             fromUsername: "cakelly4",
             toUsername: "bblevins96",
             testId: 5,
@@ -230,12 +230,13 @@ function renderMessages() {
         const messageItem = document.createElement("li");
         ul.appendChild(messageItem);
 
-        const subject = document.createElement("span");
+        const subject = document.createElement("h3");
         subject.innerText = message.subject;
         messageItem.appendChild(subject);
 
         const from = document.createElement("p");
         from.innerText = message.fromUsername;
+        from.classList.add("from");
         messageItem.appendChild(from);
 
         const messageBody = document.createElement("p");

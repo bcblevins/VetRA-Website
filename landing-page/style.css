@@ -12,8 +12,9 @@ body {
     font-family: var(--font-sans);
     margin: var(--body-margin);
     background-image: var(--gradient-9);
+    margin: 0px;
     min-height: 100vh;
-    height: 100%;
+    /* height: 100%; */
 
 }
 
@@ -138,8 +139,7 @@ main {
                 padding-top: 0px;
                 margin-inline: 0px;
                 padding-inline: 10px;
-                -webkit-text-stroke-width: 1px;
-                -webkit-text-stroke-color: var(--primary-blue-shade);
+                text-shadow: 0px 0px 10px var(--primary-blue-shade);
             }
 
             .pet-details {
@@ -163,12 +163,18 @@ main {
     }
 
     #content {
-        height: 7vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 }
 
 .message {
-    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
 
     li {
         font-size: 30px;
@@ -179,14 +185,21 @@ main {
         box-shadow: 0px 0px 10px 0px black;
 
 
-        span {
+        h3 {
             display: inline-block;
-            background-color: rgb(170, 170, 170);
+            background-image: var(--gradient-6);
             font-size: 1em;
             margin: 0px;
-            width: 100%;
+            width: calc(100% - 5px);
             border-radius: 5px;
-            }
+            color: white;
+            text-shadow: 0px 0px 2px black;
+            padding-left: 5px;
+        }
+
+        .from {
+            color: var(--primary-gray);
+        }
 
         p {
             font-size: 0.8em;
@@ -201,11 +214,8 @@ main {
     align-items: flex-start;
     padding-top: 5px;
     flex-direction: column;
+    /* height: 100vh; */
 
-    header {
-        position: fixed;
-
-    }
 
     nav {
         display: none;
@@ -234,31 +244,7 @@ main {
         }
 
         .menu {
-            order: 1;
-            flex-direction: row;
-            min-width: 200px;
-            --interactable-margin: 0px;
-            --interactable-width: 40px;
-
-            .interactable {
-                flex-shrink: 0;
-                margin-right: 0px;
-                height: var(--interactable-width);
-                width: var(--interactable-width);
-                background-color: var(--primary-blue);
-                color: var(--primary-blue);
-                background-image: var(--gradient-7);
-
-
-            }
-
-            .interactable:hover {
-                background-image: none;
-                height: var(--interactable-width);
-                width: var(--interactable-width);
-                color: var(--primary-blue-shade);
-            }
-
+            display: none;
         }
 
 
