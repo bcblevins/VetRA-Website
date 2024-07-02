@@ -20,13 +20,13 @@ body {
 
 header {
 
-    background-image: var(--gradient-7);
+    background-color: var(--primary-blue-shade);
     position: fixed;
     height: 7vh;
     padding: 5px;
     padding-block: 10px;
-    display: flex;
     min-width: 100vw;
+    z-index: 1;
 
     #logo {
         height: 90%;
@@ -34,16 +34,31 @@ header {
         margin-top: 0px;
         margin-right: 20px;
         padding: 5px;
+        padding-top: 0px;
         max-width: var(--aside-width);
         background-color: var(--primary-blue-shade);
         border-radius: 5px;
-        box-shadow: 0px 0px 5px 0px var(--primary-blue);
+        display: inline-block;
+    }
+
+    #hello {
+        font-size: 1em;
+        margin: 0px;
+        display: inline-block;
+        position: fixed;
+        font-style: italic;
+        font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        color: white;
+        font-weight:100;
     }
 
     #user-name {
-        font-size: 3vh;
-        margin-top: calc(3vh);
-
+        margin: 0px;
+        height: 1em;
+        display: inline-block;
+        position: fixed;
+        top: 1em;
+        color: var(--primary-blue);
     }
 
 }
@@ -56,6 +71,7 @@ main {
     align-items: center;
     height: 100%;
     padding-top: 20vh;
+    flex-wrap: wrap;
 
 
 
@@ -69,6 +85,8 @@ main {
         animation: var(--animation-slide-in-up) forwards;
         margin: 10px;
         width: 450px;
+        z-index: 0;
+        background-image: var(--gradient-9);
 
 
 
@@ -115,6 +133,7 @@ main {
                 transition: .01s ease;
                 box-shadow: 0px 0px 10px 0px var(--light-shadow);
                 margin-block: 10px;
+                cursor: pointer;
             }
 
         }
@@ -139,7 +158,7 @@ main {
                 padding-top: 0px;
                 margin-inline: 0px;
                 padding-inline: 10px;
-                text-shadow: 0px 0px 10px var(--primary-blue-shade);
+                text-shadow: -1px 1px 2px var(--primary-blue-shade);
             }
 
             .pet-details {
@@ -166,6 +185,7 @@ main {
         display: flex;
         justify-content: center;
         align-items: center;
+        width: 100vw;
     }
 }
 
@@ -234,6 +254,9 @@ main {
         width: 100%;
         border-radius: 0px;
         justify-content: flex-start;
+        z-index: 2;
+        background-image: none;
+        animation: var(--animation-slide-in-left) 0s;
 
         .portrait {
             height: 90%;
@@ -278,6 +301,10 @@ main {
     position: absolute;
 
     #user-name {
+        display: none;
+    }
+
+    #hello {
         display: none;
     }
 }

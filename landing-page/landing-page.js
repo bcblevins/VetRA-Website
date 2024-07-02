@@ -1,5 +1,12 @@
 let messagesShowing = false;
-let user = "bblevins96";
+let user = 
+{
+    username: "bblevins96",
+    password: "t4qc09ntqcruiqm[werfm[vfdasd;jk",
+    firstName: "Beau",
+    lastName: "Blevins",
+    email: "bblevins@test.com"
+};
 let activePatient;
 const patients =
     [
@@ -96,6 +103,8 @@ const prescriptions =
         }
     ]
 
+// ELEMENTS: HEADER //////////////////////////////////////
+const userName = document.getElementById("user-name");
 
 // ELEMENTS: NAV /////////////////////////////////////////
 const messageInteractable = document.querySelector(".interactable");
@@ -108,15 +117,12 @@ const content = document.getElementById("content");
 
 
 // EVENT LISTENERS ///////////////////////////////////////
-
 document.addEventListener("DOMContentLoaded", () => {
     console.log("DOMContentLoaded");
     activePatient = patients[0];
+    userName.innerText = user.firstName + " " + user.lastName
     renderPatientProfiles();
 });
-
-
-
 
 
 // FUNCTIONS /////////////////////////////////////////////
