@@ -208,6 +208,12 @@ function shrinkNav() {
     document.querySelector(".card-0").classList.add("active");
     main.classList.add("shrink-nav");
     header.classList.add("shrink-header");
+
+    const backBtn = document.createElement("button");
+    backBtn.innerText = "Back";
+    backBtn.classList.add("back-btn");
+    backBtn.addEventListener("click", expandNav);
+    content.appendChild(backBtn);
 }
 
 function expandNav() {

@@ -1,5 +1,11 @@
 @import "https://unpkg.com/open-props";
 
+html,
+body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
 body {
     --primary-blue: aqua;
     --primary-blue-shade: rgb(36, 106, 152);
@@ -14,6 +20,7 @@ body {
     background-image: var(--gradient-9);
     margin: 0px;
     min-height: 100vh;
+    max-width: 100vw;
     /* height: 100%; */
 
 }
@@ -25,7 +32,8 @@ header {
     height: 7vh;
     padding: 5px;
     padding-block: 10px;
-    min-width: 100vw;
+    width: 100vw;
+    max-width: calc(100vw - 10px);
     z-index: 1;
 
     #logo {
@@ -47,9 +55,9 @@ header {
         display: inline-block;
         position: fixed;
         font-style: italic;
-        font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
         color: white;
-        font-weight:100;
+        font-weight: 100;
     }
 
     #user-name {
@@ -189,6 +197,21 @@ main {
     }
 }
 
+.back-btn {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    height: 5vh;
+    width: 10vh;
+    background-color: var(--primary-blue-shade);
+    color: white;
+    border-radius: 5px;
+    padding: 5px;
+    box-shadow: 0px 0px 5px 0px var(--light-shadow);
+    cursor: pointer;
+    z-index: 1;
+}
+
 .message {
     display: flex;
     flex-direction: column;
@@ -234,7 +257,6 @@ main {
     align-items: flex-start;
     padding-top: 5px;
     flex-direction: column;
-    /* height: 100vh; */
 
 
     nav {
@@ -295,6 +317,7 @@ main {
 
 }
 
+
 .shrink-header {
 
     width: 100%;
@@ -307,4 +330,71 @@ main {
     #hello {
         display: none;
     }
+}
+
+p.copyright {
+    text-align: center;
+    position: absolute;
+    bottom: 0px;
+    left: 50%;
+    margin-bottom: 0%;
+}
+
+.links {
+    position: fixed;
+    bottom: 0px;
+    margin-bottom: 0%;
+}
+
+@media screen and (max-width: 425px) {
+    main {
+        padding-top: 10vh;
+
+        .pet-card {
+            .portrait {
+                height: 150px;
+            }
+
+
+            .pet-info {
+                .pet-name {
+                    font-size: 1.5em;
+                }
+
+                .pet-details {
+                    font-size: 0.8em;
+                    margin-left: 10px;
+                }
+
+            }
+
+        }
+
+    }
+
+    .shrink-nav {
+        nav {
+            .portrait {
+                height: 90%;
+            }
+
+            .pet-info {
+                .pet-name {
+                    font-size: 5vh;
+                }
+
+            
+            }
+        }
+    }
+
+    .message {
+        padding-left: 0%;
+
+        li {
+            width: 90%;
+        }
+    }
+
+
 }
