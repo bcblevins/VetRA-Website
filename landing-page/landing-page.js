@@ -1,107 +1,150 @@
 let messagesShowing = false;
-let user = 
-{
-    username: "bblevins96",
-    password: "t4qc09ntqcruiqm[werfm[vfdasd;jk",
-    firstName: "Beau",
-    lastName: "Blevins",
-    email: "bblevins@test.com"
-};
+let user;
 let activePatient;
-const patients =
-    [
-        {
-            patientId: "1",
-            firstName: "Charlie",
-            birthday: "03/03/2015",
-            species: "Canine",
-            sex: "SF",
-            ownerUsername: "bblevins96",
-            imageSource: "../img/Charlie.jpg"
-        },
-        {
-            patientId: "2",
-            firstName: "Sunny",
-            birthday: "01/01/2017",
-            species: "Feline",
-            sex: "CM",
-            ownerUsername: "bblevins96",
-            imageSource: "../img/Sunny.jpg"
-        },
-        {
-            patientId: "3",
-            firstName: "Arlo",
-            birthday: "01/01/2019",
-            species: "Feline",
-            sex: "CM",
-            ownerUsername: "bblevins96",
-            imageSource: "../img/Arlo.jpg"
+let patients;
+let messages;
+let prescriptions;
+
+if (localStorage.getItem("token") === "test") {
+
+    user =
+    {
+        username: "bblevins96",
+        password: "t4qc09ntqcruiqm[werfm[vfdasd;jk",
+        firstName: "Beau",
+        lastName: "Blevins",
+        email: "bblevins@test.com"
+    };
+    activePatient;
+    patients =
+        [
+            {
+                patientId: "1",
+                firstName: "Charlie",
+                birthday: "03/03/2015",
+                species: "Canine",
+                sex: "SF",
+                ownerUsername: "bblevins96",
+                imageSource: "../img/Charlie.jpg"
+            },
+            {
+                patientId: "2",
+                firstName: "Sunny",
+                birthday: "01/01/2017",
+                species: "Feline",
+                sex: "CM",
+                ownerUsername: "bblevins96",
+                imageSource: "../img/Sunny.jpg"
+            },
+            {
+                patientId: "3",
+                firstName: "Arlo",
+                birthday: "01/01/2019",
+                species: "Feline",
+                sex: "CM",
+                ownerUsername: "bblevins96",
+                imageSource: "../img/Arlo.jpg"
+            }
+        ]
+    messages =
+        [
+            {
+                messageId: 1,
+                subject: "Looks great!",
+                body: "Charlie's labwork looks great, her white blood cell count is back in the normal range. How is she doing after her visit?",
+                fromUsername: "cakelly4",
+                toUsername: "bblevins96",
+                testId: 1,
+                patientId: 1
+            },
+            {
+                messageId: 2,
+                subject: "Follow-up on Medication",
+                body: "Is Charlie having any side effects from her new medication? Any excessive drowsiness?",
+                fromUsername: "cakelly4",
+                toUsername: "bblevins96",
+                testId: 2,
+                patientId: 1
+            },
+            {
+                messageId: 3,
+                subject: "Recheck in 2 weeks",
+                body: "Charlie's liver values are still elevated. We should recheck in 2 weeks to see if they are improving.",
+                fromUsername: "cakelly4",
+                toUsername: "bblevins96",
+                testId: 3,
+                patientId: 1
+            },
+            {
+                messageId: 4,
+                subject: "Lab Results",
+                body: "The latest lab results for Charlie are in. Liver values have improved and the rest of her bloodwork looks great.",
+                fromUsername: "cakelly4",
+                toUsername: "bblevins96",
+                testId: 4,
+                patientId: 1
+            },
+            {
+                messageId: 5,
+                subject: "Dietary Recommendations",
+                body: "Charlie's weight is up a little bit. I recommend cutting back on her food by 1/4 cup per day. Let me know if you have any questions.",
+                fromUsername: "cakelly4",
+                toUsername: "bblevins96",
+                testId: 5,
+                patientId: 1
+            }
+
+
+        ];
+    prescriptions =
+        [
+            {
+                prescriptionId: 1,
+                name: "Trazodone 50mg",
+                quantity: 10,
+                unit: "tablets",
+                instructions: "Give 1/2 tablet by mouth 3 hours prior to thunderstorms to reduce anxiety.",
+                refills: 0,
+                patientId: 1,
+                doctorUsername: "cakelly4",
+                active: true
+            }
+        ]
+
+} else {
+    const userResponse = await fetch("https://localhost:8080/user", {
+        method: "GET",
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("token")
         }
-    ]
-const messages =
-    [
-        {
-            messageId: 1,
-            subject: "Looks great!",
-            body: "Charlie's labwork looks great, her white blood cell count is back in the normal range. How is she doing after her visit?",
-            fromUsername: "cakelly4",
-            toUsername: "bblevins96",
-            testId: 1,
-            patientId: 1
-        },
-        {
-            messageId: 2,
-            subject: "Follow-up on Medication",
-            body: "Is Charlie having any side effects from her new medication? Any excessive drowsiness?",
-            fromUsername: "cakelly4",
-            toUsername: "bblevins96",
-            testId: 2,
-            patientId: 1
-        },
-        {
-            messageId: 3,
-            subject: "Recheck in 2 weeks",
-            body: "Charlie's liver values are still elevated. We should recheck in 2 weeks to see if they are improving.",
-            fromUsername: "cakelly4",
-            toUsername: "bblevins96",
-            testId: 3,
-            patientId: 1
-        },
-        {
-            messageId: 4,
-            subject: "Lab Results",
-            body: "The latest lab results for Charlie are in. Liver values have improved and the rest of her bloodwork looks great.",
-            fromUsername: "cakelly4",
-            toUsername: "bblevins96",
-            testId: 4,
-            patientId: 1
-        },
-        {
-            messageId: 5,
-            subject: "Dietary Recommendations",
-            body: "Charlie's weight is up a little bit. I recommend cutting back on her food by 1/4 cup per day. Let me know if you have any questions.",
-            fromUsername: "cakelly4",
-            toUsername: "bblevins96",
-            testId: 5,
-            patientId: 1
+    });
+    user = await userResponse.json();
+
+    const patientResponse = await fetch("https://localhost:8080/patient", {
+        method: "GET",
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("token")
         }
-        
-        
-    ];
-const prescriptions =
-    [
-        {
-            prescriptionId: 1,
-            name: "Trazodone 50mg",
-            quantity: 10,
-            unit: "tablets",
-            instructions: "Give 1/2 tablet by mouth 3 hours prior to thunderstorms to reduce anxiety.",
-            refills: 0,
-            patientId: 1,
-            doctorUsername: "cakelly4",
-            active: true
+    });
+    patients = await patientResponse.json();
+
+    const messageResponse = await fetch("https://localhost:8080/message", {
+        method: "GET",
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("token")
         }
-    ]
+    });
+    messages = await messageResponse.json();
+
+    const prescriptionResponse = await fetch("https://localhost:8080/prescription", {
+        method: "GET",
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("token")
+        }
+    });
+    prescriptions = await prescriptionResponse.json();
+
+}
 
 // ELEMENTS: HEADER //////////////////////////////////////
 const userName = document.getElementById("user-name");
@@ -127,7 +170,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // FUNCTIONS /////////////////////////////////////////////
 function renderPatientProfiles() {
-    for (let i = patients.length-1; i >= 0; i--) {
+    for (let i = patients.length - 1; i >= 0; i--) {
         console.log(i);
         let patient = patients[i];
         const nav = document.createElement("nav");
@@ -191,7 +234,7 @@ function renderPatientProfiles() {
         birthday.classList.add("pet-details");
         info.appendChild(birthday);
         nav.appendChild(info);
-        
+
         const main = document.querySelector("main");
         main.insertBefore(nav, main.firstChild);
 

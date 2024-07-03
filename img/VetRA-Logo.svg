@@ -7,7 +7,7 @@
    viewBox="0 0 622.75786 368.22482"
    version="1.1"
    id="svg1"
-   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25)"
    sodipodi:docname="VetRA-Logo.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -23,14 +23,14 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#505050"
      inkscape:document-units="mm"
-     inkscape:zoom="1.0494603"
-     inkscape:cx="315.87663"
-     inkscape:cy="228.21253"
-     inkscape:window-width="2560"
-     inkscape:window-height="1369"
-     inkscape:window-x="1592"
-     inkscape:window-y="-8"
-     inkscape:window-maximized="1"
+     inkscape:zoom="0.43496996"
+     inkscape:cx="268.98409"
+     inkscape:cy="249.44251"
+     inkscape:window-width="1440"
+     inkscape:window-height="876"
+     inkscape:window-x="0"
+     inkscape:window-y="24"
+     inkscape:window-maximized="0"
      inkscape:current-layer="layer1" />
   <defs
      id="defs1">
@@ -423,17 +423,11 @@
        inkscape:path-effect="#path-effect28"
        inkscape:original-d="m 664.92582,467.60422 65.36466,-193.88045 h 31.77088 l 65.36466,193.88045 H 800.21244 L 782.6343,413.43748 h -74.08863 l -17.57815,54.16674 z m 110.54701,-76.17197 -29.94795,-91.40636 -29.81775,91.40636 z"
        transform="translate(-20.211647)" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:166.667px;font-family:'Segoe Script';-inkscape-font-specification:'Segoe Script, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#daffff;fill-opacity:1"
-       x="308.48471"
-       y="462.47726"
-       id="text23"><tspan
-         sodipodi:role="line"
-         id="tspan23"
-         x="308.48471"
-         y="462.47726"
-         style="font-size:166.667px;fill:#daffff;fill-opacity:1">et</tspan></text>
+    <path
+       d="m 399.63073,418.61324 h -66.97605 q 0,8.38218 2.52279,14.64847 2.5228,6.18491 6.91734,10.17255 4.23177,3.90625 10.00978,5.85938 5.85939,1.95313 12.8581,1.95313 9.27736,0 18.63611,-3.66211 9.44012,-3.7435 13.42776,-7.32424 h 0.8138 v 16.68298 q -7.73113,3.25521 -15.78779,5.45248 -8.05666,2.19727 -16.92712,2.19727 -22.62374,0 -35.31908,-12.20705 -12.69534,-12.28844 -12.69534,-34.8308 0,-22.29823 12.12568,-35.40047 12.20705,-13.10224 32.06386,-13.10224 18.39197,0 28.32037,10.74221 10.00979,10.74221 10.00979,30.51764 z m -14.89261,-11.71877 q -0.0814,-12.0443 -6.10353,-18.63611 -5.94076,-6.59181 -18.14782,-6.59181 -12.28844,0 -19.61267,7.24286 -7.24285,7.24285 -8.21942,17.98506 z m 85.28663,54.76899 q -4.31315,1.13933 -9.44012,1.87175 -5.04558,0.73242 -9.03322,0.73242 -13.91604,0 -21.1589,-7.48699 -7.24285,-7.487 -7.24285,-24.00721 v -48.33994 h -10.33531 v -12.8581 h 10.33531 v -26.1231 h 15.29951 v 26.1231 h 31.57558 v 12.8581 h -31.57558 v 41.42261 q 0,7.16147 0.32552,11.23049 0.32552,3.98764 2.27865,7.48699 1.79037,3.25522 4.88282,4.80144 3.17384,1.46485 9.60289,1.46485 3.7435,0 7.81251,-1.05794 4.06902,-1.13933 5.85939,-1.87175 h 0.8138 z"
+       id="text23"
+       style="font-size:166.667px;font-family:'Segoe Script';-inkscape-font-specification:'Segoe Script, Normal';fill:#daffff"
+       aria-label="et" />
     <path
        style="fill:none;fill-opacity:1;stroke:#ffa800;stroke-width:22.6772;stroke-dasharray:none;stroke-opacity:1"
        d="m 726.47824,261.59571 c 0,-10.79624 0,-21.59249 0,-31.52377 0,-9.93127 0,-18.99722 -4.35313,-23.53029 -4.35313,-4.53306 -13.05905,-4.53306 -21.76514,-4.53306"
