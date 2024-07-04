@@ -5,8 +5,6 @@ const loginBtn = document.getElementById("login");
 loginBtn.addEventListener("click", function () {
     if (username.value === "test" && password.value === "test") {
         localStorage.setItem("token", "test");
-        alert("Login successful");
-        window.location.href = "../landing-page/landing-page.html";
     } else {
         login();
     }
@@ -18,6 +16,30 @@ let loginBody = {
 
 };
 
+async function login() {
+    try {
+        const response = await fetch("http://localhost:8080/test/login/" + username.value);
+        const data = await response.json();
+        localStorage.setItem("user", JSON.stringify(data));
+
+        if (response.ok) {
+            // const auth = await response.json();
+            // localStorage.setItem("token", auth.token);
+            // alert(auth);
+            // window.location.href = "../landing-page/landing-page.html";
+            window.location.href = "../landing-page/landing-page.html";
+
+        }
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+
+
+
+
+/*
 async function login() {
     try {
         const response = await fetch("https://localhost:8080/auth/login", {
@@ -39,3 +61,4 @@ async function login() {
         console.error(error);
     }
 }
+*/

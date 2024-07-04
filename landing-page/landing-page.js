@@ -1,9 +1,12 @@
 let messagesShowing = false;
+let testsShowing = false;
+let prescriptionsShowing = false;
 let user;
 let activePatient;
 let patients;
 let messages;
 let prescriptions;
+let tests;
 
 if (localStorage.getItem("token") === "test") {
 
@@ -58,13 +61,12 @@ if (localStorage.getItem("token") === "test") {
                 patientId: 1
             },
             {
-                messageId: 2,
-                subject: "Follow-up on Medication",
-                body: "Is Charlie having any side effects from her new medication? Any excessive drowsiness?",
-                fromUsername: "cakelly4",
-                toUsername: "bblevins96",
-                testId: 2,
-                patientId: 1
+                "subject": "Charlie learned to drive",
+                "body": "Please help, Charlie has kidnapped me and is driving me to the treat store. I haven't told her yet that that doesn't exist.",
+                "fromUsername": "bblevins96",
+                "toUsername": "cakelly4",
+                "patientId": 1,
+                "testId": 1
             },
             {
                 messageId: 3,
@@ -110,39 +112,120 @@ if (localStorage.getItem("token") === "test") {
                 active: true
             }
         ]
+    tests =
+        [
+            {
+                "id": 1,
+                "name": "CBC",
+                "timestamp": "2024-05-24T00:00:00",
+                "patientID": 1,
+                "doctorUsername": "cakelly4",
+                "results": [
+                    {
+                        "resultID": 1,
+                        "testID": 1,
+                        "resultValue": "9.3",
+                        "parameterName": "WBC",
+                        "rangeLow": "4",
+                        "rangeHigh": "15.5",
+                        "unit": "10^3/mcL"
+                    },
+                    {
+                        "resultID": 2,
+                        "testID": 1,
+                        "resultValue": "8.0",
+                        "parameterName": "RBC",
+                        "rangeLow": "4.8",
+                        "rangeHigh": "9.3",
+                        "unit": "10^6/mcL"
+                    },
+                    {
+                        "resultID": 3,
+                        "testID": 1,
+                        "resultValue": "20.3",
+                        "parameterName": "HGB",
+                        "rangeLow": "12.1",
+                        "rangeHigh": "20.3",
+                        "unit": "g/dl"
+                    },
+                    {
+                        "resultID": 4,
+                        "testID": 1,
+                        "resultValue": "54.0",
+                        "parameterName": "HCT",
+                        "rangeLow": "36",
+                        "rangeHigh": "60",
+                        "unit": "%"
+                    },
+                    {
+                        "resultID": 5,
+                        "testID": 1,
+                        "resultValue": "67.0",
+                        "parameterName": "MCV",
+                        "rangeLow": "58",
+                        "rangeHigh": "79",
+                        "unit": "fL"
+                    },
+                    {
+                        "resultID": 6,
+                        "testID": 1,
+                        "resultValue": "330",
+                        "parameterName": "PLT",
+                        "rangeLow": "170",
+                        "rangeHigh": "400",
+                        "unit": "10^3/mcL"
+                    }
+                ]
+            },
+            {
+                "id": 4,
+                "name": "Fecal",
+                "timestamp": "2024-07-03T21:05:41.764148",
+                "patientID": 1,
+                "doctorUsername": "cakelly4",
+                "results": [
+                    {
+                        "resultID": 15,
+                        "testID": 4,
+                        "resultValue": "Negative",
+                        "parameterName": "Hookworms",
+                        "rangeLow": null,
+                        "rangeHigh": null,
+                        "unit": null
+                    },
+                    {
+                        "resultID": 16,
+                        "testID": 4,
+                        "resultValue": "Negative",
+                        "parameterName": "Roundworms",
+                        "rangeLow": null,
+                        "rangeHigh": null,
+                        "unit": null
+                    },
+                    {
+                        "resultID": 17,
+                        "testID": 4,
+                        "resultValue": "Negative",
+                        "parameterName": "Whipworms",
+                        "rangeLow": null,
+                        "rangeHigh": null,
+                        "unit": null
+                    },
+                    {
+                        "resultID": 18,
+                        "testID": 4,
+                        "resultValue": "Negative",
+                        "parameterName": "Tapeworms",
+                        "rangeLow": null,
+                        "rangeHigh": null,
+                        "unit": null
+                    }
+                ]
+            }
+        ];
+    console.log("test data loaded");
 
 } else {
-    const userResponse = await fetch("https://localhost:8080/user", {
-        method: "GET",
-        headers: {
-            "Authorization": "Bearer " + localStorage.getItem("token")
-        }
-    });
-    user = await userResponse.json();
-
-    const patientResponse = await fetch("https://localhost:8080/patient", {
-        method: "GET",
-        headers: {
-            "Authorization": "Bearer " + localStorage.getItem("token")
-        }
-    });
-    patients = await patientResponse.json();
-
-    const messageResponse = await fetch("https://localhost:8080/message", {
-        method: "GET",
-        headers: {
-            "Authorization": "Bearer " + localStorage.getItem("token")
-        }
-    });
-    messages = await messageResponse.json();
-
-    const prescriptionResponse = await fetch("https://localhost:8080/prescription", {
-        method: "GET",
-        headers: {
-            "Authorization": "Bearer " + localStorage.getItem("token")
-        }
-    });
-    prescriptions = await prescriptionResponse.json();
 
 }
 
@@ -161,11 +244,90 @@ const content = document.getElementById("content");
 
 // EVENT LISTENERS ///////////////////////////////////////
 document.addEventListener("DOMContentLoaded", () => {
+    setup();
     console.log("DOMContentLoaded");
-    activePatient = patients[0];
-    userName.innerText = user.firstName + " " + user.lastName
-    renderPatientProfiles();
 });
+
+async function setup() {
+    await fetchData();
+        // activePatient = patients[0];
+        userName.innerText = user.firstName + " " + user.lastName
+        renderPatientProfiles();
+}
+
+async function fetchData() {
+    // const userResponse = await fetch("https://localhost:8080/user", {
+    //     method: "GET",
+    //     headers: {
+    //         "Authorization": "Bearer " + localStorage.getItem("token")
+    //     }
+    // });
+    // user = await userResponse.json();
+    user = localStorage.getItem("user");
+    user = JSON.parse(user);
+    console.log(user.firstName + " " + user.lastName);
+
+    const patientResponse = await fetch("http://localhost:8080/test/" + user.username + "/patients");
+    //     method: "GET",
+    //     headers: {
+    //         "Authorization": "Bearer " + localStorage.getItem("token")
+    //     }
+    // });
+    patients = await patientResponse.json();
+    console.log(patients);
+    patients[0].imageSource = "../img/Arlo.jpg";
+    patients[1].imageSource = "../img/Charlie.jpg";
+    patients[2].imageSource = "../img/Sunny.jpg";
+    console.log(patients[0].firstName);
+
+    const messageResponse = await fetch("http://localhost:8080/test/" + patients[0].patientId + "/messages");
+    //     method: "GET",
+    //     headers: {
+    //         "Authorization": "Bearer " + localStorage.getItem("token")
+    //     }
+    // });
+
+
+    //----------------------------------------------
+    // problem is here - not getting messages
+    //----------------------------------------------
+    messages = await messageResponse.json();
+    console.log(messages);
+
+    const prescriptionResponse = await fetch("http://localhost:8080/test/" + patients[0].patientId + "/prescriptions");
+    //     method: "GET",
+    //     headers: {
+    //         "Authorization": "Bearer " + localStorage.getItem("token")
+    //     }
+    // });
+
+    //----------------------------------------------
+    // problem is here - not getting prescriptions
+    //----------------------------------------------
+    prescriptions = await prescriptionResponse.json();
+    console.log(prescriptions);
+
+    const testResponse = await fetch("http://localhost:8080/test/" + patients[0].patientId + "/tests");
+    //
+    //
+    //
+    //
+    //
+
+    //----------------------------------------------
+    // problem is here - not getting tests
+    //----------------------------------------------
+    tests = await testResponse.json();
+
+    for (let test of tests) {
+        const resultResponse = await fetch("http://localhost:8080/test/" + test.id + "/results");
+        test.results = await resultResponse.json();
+        console.log(test);
+    }
+}
+
+
+
 
 
 // FUNCTIONS /////////////////////////////////////////////
@@ -195,11 +357,12 @@ function renderPatientProfiles() {
         tests.innerText = "T";
         menu.appendChild(tests);
 
-        const prescriptions = document.createElement("li");
-        prescriptions.classList.add("interactable");
-        prescriptions.classList.add("Med");
-        prescriptions.innerText = "Rx";
-        menu.appendChild(prescriptions);
+        const prescriptionBtn = document.createElement("li");
+        prescriptionBtn.classList.add("interactable");
+        prescriptionBtn.classList.add("Med");
+        prescriptionBtn.innerText = "Rx";
+        prescriptionBtn.addEventListener("click", renderPrescriptions);
+        menu.appendChild(prescriptionBtn);
 
         nav.appendChild(menu);
 
@@ -300,4 +463,66 @@ function renderMessages() {
 
     }
     messagesShowing = true;
+}
+
+function renderPrescriptions() {
+    if (prescriptionsShowing) {
+        return;
+    }
+    shrinkNav();
+    content.classList.add("display");
+    const ul = document.createElement("ul");
+    ul.classList.add("prescription");
+    content.appendChild(ul);
+    for (let prescription of prescriptions) {
+        const prescriptionItem = document.createElement("li");
+        ul.appendChild(prescriptionItem);
+
+        const rxName = document.createElement("h3");
+        rxName.innerText = prescription.name;
+        prescriptionItem.appendChild(rxName);
+
+        const doctor = document.createElement("p");
+        doctor.innerText = prescription.doctorUsername;
+        doctor.classList.add("doctor");
+        prescriptionItem.appendChild(doctor);
+
+        const instructions = document.createElement("p");
+        instructions.innerText = prescription.instructions;
+        instructions.classList.add("instructions");
+        prescriptionItem.appendChild(instructions);
+
+    }
+    prescriptionsShowingShowing = true;
+}
+
+function renderTests() {
+    if (testsShowing) {
+        return;
+    }
+    shrinkNav();
+    content.classList.add("display");
+    const ul = document.createElement("ul");
+    ul.classList.add("test");
+    content.appendChild(ul);
+    for (let test of tests) {
+        const testItem = document.createElement("li");
+        ul.appendChild(testItem);
+
+        const testName = document.createElement("h3");
+        testName.innerText = test.name;
+        testItem.appendChild(testName);
+
+        const doctor = document.createElement("p");
+        doctor.innerText = test.doctorUsername;
+        doctor.classList.add("doctor");
+        testItem.appendChild(doctor);
+
+        const results = document.createElement("p");
+        results.innerText = test.results;
+        results.classList.add("results");
+        testItem.appendChild(results);
+
+    }
+    testsShowing = true;
 }
