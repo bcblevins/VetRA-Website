@@ -337,7 +337,7 @@ main {
 
 
 
-        .test-name {
+        h3 {
             display: inline-block;
             font-size: 1em;
             margin: 0px;
@@ -350,6 +350,9 @@ main {
         .doctor {
             color: var(--primary-gray);
             display: inline-block;
+            margin: 0px;
+            margin-left: 10px;
+            font-size: .8em;
         }
 
         .instructions {

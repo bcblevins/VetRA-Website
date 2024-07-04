@@ -336,7 +336,7 @@ function renderPatientProfiles() {
 
         const messages = document.createElement("li");
         messages.classList.add("interactable");
-        messages.classList.add("Msg");
+        messages.classList.add("Msg-" + patient.patientId);
         messages.innerText = "M";
         messages.addEventListener("click", renderMessages);
         menu.appendChild(messages);
