@@ -5,7 +5,9 @@ const loginBtn = document.getElementById("login");
 loginBtn.addEventListener("click", function () {
     if (username.value === "test" && password.value === "test") {
         localStorage.setItem("token", "test");
+        window.location.href = "../landing-page/landing-page.html";
     } else {
+        localStorage.removeItem("token");
         login();
     }
 });

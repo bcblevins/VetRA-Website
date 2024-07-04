@@ -14,7 +14,9 @@ body {
     --body-margin: 8px;
     --interactable-width: 40px;
     --interactable-margin: 5px;
+    --primary-lightblue: rgb(165, 228, 233);
     --light-shadow: rgb(109, 109, 109);
+    --gradient-color: rgb(214, 240, 247);
     font-family: var(--font-sans);
     margin: var(--body-margin);
     background-image: var(--gradient-9);
@@ -233,7 +235,7 @@ main {
             margin: 0px;
             width: calc(100% - 5px);
             border-radius: 1px;
-            background-color: rgb(155, 248, 255);
+            background-color: var(--primary-lightblue);
             padding-left: 5px;
             color: rgb(0, 0, 0);
         }
@@ -253,6 +255,71 @@ main {
     }
 }
 
+.tests {
+
+    list-style: none;
+    padding: 5px;
+
+    .test-item {
+        border: 2px solid var(--primary-blue-shade);
+        border-radius: 5px;
+        padding: 20px;
+        padding-top: 5px;
+        background-color: rgb(238, 251, 255);
+        margin: 10px;
+
+        .test-heading {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 2px solid var(--primary-blue-shade);
+
+
+            .date {
+                margin-block: 0px;
+                padding-top: 10px;
+                height: 100%;
+
+            }
+
+            .test-name {
+                font-weight: 600;
+                margin-block: 0px;
+                font-size: 2em;
+            }
+        }
+
+        .doctor {
+            margin-top: 0px;
+            color: var(--primary-gray);
+        }
+
+        .results {
+            border-collapse: collapse;
+
+            tr:nth-child(odd) {
+                background-color: var(--primary-lightblue);
+            }
+
+            tr:nth-child(1) {
+                background-color: rgb(48, 236, 236);
+            }
+
+            .heading-row {
+                * {
+                    font-weight: 600;
+                }
+            }
+
+            tr * {
+                padding-right: 20px;
+
+            }
+        }
+
+    }
+
+}
+
 .prescription {
     display: flex;
     flex-direction: column;
@@ -268,7 +335,9 @@ main {
         width: 50%;
         border: 2px solid var(--primary-blue-shade);
 
-        h3 {
+
+
+        .test-name {
             display: inline-block;
             font-size: 1em;
             margin: 0px;

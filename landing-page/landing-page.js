@@ -1,6 +1,7 @@
-let messagesShowing = false;
-let testsShowing = false;
-let prescriptionsShowing = false;
+let isMessagesShowing = false;
+let isTestsShowing = false;
+let isPrescriptionsShowing = false;
+let isTestData = false;
 let user;
 let activePatient;
 let patients;
@@ -9,7 +10,7 @@ let prescriptions;
 let tests;
 
 if (localStorage.getItem("token") === "test") {
-
+    console.log("test data incoming")
     user =
     {
         username: "bblevins96",
@@ -21,6 +22,15 @@ if (localStorage.getItem("token") === "test") {
     activePatient;
     patients =
         [
+            {
+                patientId: "3",
+                firstName: "Arlo",
+                birthday: "01/01/2019",
+                species: "Feline",
+                sex: "CM",
+                ownerUsername: "bblevins96",
+                imageSource: "../img/Arlo.jpg"
+            },
             {
                 patientId: "1",
                 firstName: "Charlie",
@@ -38,17 +48,9 @@ if (localStorage.getItem("token") === "test") {
                 sex: "CM",
                 ownerUsername: "bblevins96",
                 imageSource: "../img/Sunny.jpg"
-            },
-            {
-                patientId: "3",
-                firstName: "Arlo",
-                birthday: "01/01/2019",
-                species: "Feline",
-                sex: "CM",
-                ownerUsername: "bblevins96",
-                imageSource: "../img/Arlo.jpg"
             }
         ]
+    patients.sort((a, b) => a.patientId - b.patientId);
     messages =
         [
             {
@@ -224,8 +226,7 @@ if (localStorage.getItem("token") === "test") {
             }
         ];
     console.log("test data loaded");
-
-} else {
+    isTestData = true;
 
 }
 
@@ -249,43 +250,32 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 async function setup() {
-    await fetchData();
+    if (!isTestData) {
+        await fetchData();
         // activePatient = patients[0];
         userName.innerText = user.firstName + " " + user.lastName
-        renderPatientProfiles();
+    }
+    renderPatientProfiles();
 }
 
 async function fetchData() {
-    // const userResponse = await fetch("https://localhost:8080/user", {
-    //     method: "GET",
-    //     headers: {
-    //         "Authorization": "Bearer " + localStorage.getItem("token")
-    //     }
-    // });
-    // user = await userResponse.json();
     user = localStorage.getItem("user");
     user = JSON.parse(user);
     console.log(user.firstName + " " + user.lastName);
 
     const patientResponse = await fetch("http://localhost:8080/test/" + user.username + "/patients");
-    //     method: "GET",
-    //     headers: {
-    //         "Authorization": "Bearer " + localStorage.getItem("token")
-    //     }
-    // });
+
     patients = await patientResponse.json();
+    patients.sort((a, b) => a.patientId - b.patientId);
     console.log(patients);
-    patients[0].imageSource = "../img/Arlo.jpg";
-    patients[1].imageSource = "../img/Charlie.jpg";
-    patients[2].imageSource = "../img/Sunny.jpg";
+
+    // .find allows indexing array by object property value. This way we can set the image source for each patient by id
+    patients.find(item => item.patientId === 3).imageSource = "../img/Arlo.jpg";
+    patients.find(item => item.patientId === 1).imageSource = "../img/Charlie.jpg";
+    patients.find(item => item.patientId === 2).imageSource = "../img/Sunny.jpg";
     console.log(patients[0].firstName);
 
     const messageResponse = await fetch("http://localhost:8080/test/" + patients[0].patientId + "/messages");
-    //     method: "GET",
-    //     headers: {
-    //         "Authorization": "Bearer " + localStorage.getItem("token")
-    //     }
-    // });
 
 
     //----------------------------------------------
@@ -355,6 +345,7 @@ function renderPatientProfiles() {
         tests.classList.add("interactable");
         tests.classList.add("Tst");
         tests.innerText = "T";
+        tests.addEventListener("click", renderTests);
         menu.appendChild(tests);
 
         const prescriptionBtn = document.createElement("li");
@@ -431,12 +422,12 @@ function expandNav() {
     header.classList.remove("shrink-header");
     content.classList.remove("display");
     content.innerHTML = "";
-    messagesShowing = false;
+    isMessagesShowing = false;
 
 }
 
 function renderMessages() {
-    if (messagesShowing) {
+    if (isMessagesShowing) {
         return;
     }
     shrinkNav();
@@ -462,11 +453,11 @@ function renderMessages() {
         messageItem.appendChild(messageBody);
 
     }
-    messagesShowing = true;
+    isMessagesShowing = true;
 }
 
 function renderPrescriptions() {
-    if (prescriptionsShowing) {
+    if (isPrescriptionsShowing) {
         return;
     }
     shrinkNav();
@@ -497,32 +488,104 @@ function renderPrescriptions() {
 }
 
 function renderTests() {
-    if (testsShowing) {
+    if (isTestsShowing) {
         return;
     }
     shrinkNav();
     content.classList.add("display");
     const ul = document.createElement("ul");
-    ul.classList.add("test");
+    ul.classList.add("tests");
     content.appendChild(ul);
     for (let test of tests) {
+        // Parent
         const testItem = document.createElement("li");
+        testItem.classList.add("test-item");
         ul.appendChild(testItem);
 
+        // Child
+        const testHeading = document.createElement("div");
+        testHeading.classList.add("test-heading");
+        testItem.appendChild(testHeading);
+
+        // Child
         const testName = document.createElement("h3");
         testName.innerText = test.name;
-        testItem.appendChild(testName);
+        testName.classList.add("test-name")
+        testHeading.appendChild(testName);
 
+        // Child
+        const date = document.createElement("p");
+        let testDate = new Date(test.timestamp);
+        date.innerText = testDate.toDateString();
+        date.classList.add("date");
+        testHeading.appendChild(date);
+
+        // Child
         const doctor = document.createElement("p");
         doctor.innerText = test.doctorUsername;
         doctor.classList.add("doctor");
         testItem.appendChild(doctor);
 
-        const results = document.createElement("p");
-        results.innerText = test.results;
+        // Child --> Parent
+        const results = document.createElement("table");
         results.classList.add("results");
         testItem.appendChild(results);
 
+        // Child --> Parent
+        const headingRow = document.createElement("tr");
+        headingRow.classList.add("heading-row");
+        results.appendChild(headingRow);
+
+        // Child
+        const parameter = document.createElement("th");
+        parameter.innerText = "Parameter";
+        headingRow.appendChild(parameter);
+
+        const result = document.createElement("th");
+        result.innerText = "Result";
+        headingRow.appendChild(result);
+
+        const unit = document.createElement("th");
+        unit.innerText = "Unit";
+        headingRow.appendChild(unit);
+
+        const rangeLow = document.createElement("th");
+        rangeLow.innerText = "Lowest Value";
+        headingRow.appendChild(rangeLow);
+
+        const rangeHigh = document.createElement("th");
+        rangeHigh.innerText = "Highest Value";
+        headingRow.appendChild(rangeHigh);
+
+
+        for (let result of test.results) {
+            const row = document.createElement("tr");
+            results.appendChild(row);
+            row.classList.add("result-row");
+
+            const parameter = document.createElement("td");
+            parameter.innerText = result.parameterName;
+            row.appendChild(parameter);
+
+            const resultValue = document.createElement("td");
+            resultValue.innerText = result.resultValue;
+            row.appendChild(resultValue);
+
+            const unit = document.createElement("td");
+            unit.innerText = result.unit;
+            row.appendChild(unit);
+
+            const rangeLow = document.createElement("td");
+            rangeLow.innerText = result.rangeLow;
+            row.appendChild(rangeLow);
+
+            const rangeHigh = document.createElement("td");
+            rangeHigh.innerText = result.rangeHigh;
+            row.appendChild(rangeHigh);
+
+        }
+
+
     }
-    testsShowing = true;
+    isTestsShowing = true;
 }
