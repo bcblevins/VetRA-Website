@@ -231,17 +231,11 @@ if (localStorage.getItem("token") === "test") {
 }
 
 // ELEMENTS: HEADER //////////////////////////////////////
+const header = document.querySelector("header");
 const userName = document.getElementById("user-name");
-
-// ELEMENTS: NAV /////////////////////////////////////////
-const messageInteractable = document.querySelector(".interactable");
-const testInteractable = document.querySelector(".Tst");
-const prescriptionInteractable = document.querySelector(".Med");
-const portrait = document.querySelector(".portrait");
 
 // ELEMENTS: CONTENT /////////////////////////////////////
 const content = document.getElementById("content");
-
 
 // EVENT LISTENERS ///////////////////////////////////////
 document.addEventListener("DOMContentLoaded", () => {
@@ -278,35 +272,16 @@ async function fetchData() {
     const messageResponse = await fetch("http://localhost:8080/test/" + patients[0].patientId + "/messages");
 
 
-    //----------------------------------------------
-    // problem is here - not getting messages
-    //----------------------------------------------
     messages = await messageResponse.json();
     console.log(messages);
 
     const prescriptionResponse = await fetch("http://localhost:8080/test/" + patients[0].patientId + "/prescriptions");
-    //     method: "GET",
-    //     headers: {
-    //         "Authorization": "Bearer " + localStorage.getItem("token")
-    //     }
-    // });
 
-    //----------------------------------------------
-    // problem is here - not getting prescriptions
-    //----------------------------------------------
     prescriptions = await prescriptionResponse.json();
     console.log(prescriptions);
 
     const testResponse = await fetch("http://localhost:8080/test/" + patients[0].patientId + "/tests");
-    //
-    //
-    //
-    //
-    //
 
-    //----------------------------------------------
-    // problem is here - not getting tests
-    //----------------------------------------------
     tests = await testResponse.json();
 
     for (let test of tests) {
@@ -336,6 +311,7 @@ function renderPatientProfiles() {
 
         const messages = document.createElement("li");
         messages.classList.add("interactable");
+        messages.classList.add("Msg");
         messages.classList.add("Msg-" + patient.patientId);
         messages.innerText = "M";
         messages.addEventListener("click", renderMessages);
@@ -411,6 +387,17 @@ function shrinkNav() {
     backBtn.classList.add("back-btn");
     backBtn.addEventListener("click", expandNav);
     content.appendChild(backBtn);
+
+    const headerText = document.createElement("h1");
+    headerText.classList.add("header-text");
+    header.appendChild(headerText);
+    if (isMessagesShowing) {
+        headerText.innerText = "Messages";
+    } else if (isPrescriptionsShowing) {
+        headerText.innerText = "Prescriptions";
+    } else {
+        headerText.innerText = "Test Results";
+    }
 }
 
 function expandNav() {
@@ -422,7 +409,13 @@ function expandNav() {
     header.classList.remove("shrink-header");
     content.classList.remove("display");
     content.innerHTML = "";
+
+    const headerText = document.querySelector(".header-text");
+    headerText.remove();
+
     isMessagesShowing = false;
+    isPrescriptionsShowing = false;
+    isTestsShowing = false;
 
 }
 
@@ -430,6 +423,7 @@ function renderMessages() {
     if (isMessagesShowing) {
         return;
     }
+    isMessagesShowing = true;
     shrinkNav();
     content.classList.add("display");
     const ul = document.createElement("ul");
@@ -453,13 +447,13 @@ function renderMessages() {
         messageItem.appendChild(messageBody);
 
     }
-    isMessagesShowing = true;
 }
 
 function renderPrescriptions() {
     if (isPrescriptionsShowing) {
         return;
     }
+    prescriptionsShowingShowing = true;
     shrinkNav();
     content.classList.add("display");
     const ul = document.createElement("ul");
@@ -484,13 +478,13 @@ function renderPrescriptions() {
         prescriptionItem.appendChild(instructions);
 
     }
-    prescriptionsShowingShowing = true;
 }
 
 function renderTests() {
     if (isTestsShowing) {
         return;
     }
+    isTestsShowing = true;
     shrinkNav();
     content.classList.add("display");
     const ul = document.createElement("ul");
@@ -587,5 +581,4 @@ function renderTests() {
 
 
     }
-    isTestsShowing = true;
 }
