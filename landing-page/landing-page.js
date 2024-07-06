@@ -249,7 +249,7 @@ async function setup() {
         // activePatient = patients[0];
         userName.innerText = user.firstName + " " + user.lastName
     }
-    renderPatientProfiles();
+    renderPatientCards();
 }
 
 async function fetchData() {
@@ -296,7 +296,7 @@ async function fetchData() {
 
 
 // FUNCTIONS /////////////////////////////////////////////
-function renderPatientProfiles() {
+function renderPatientCards() {
     for (let i = patients.length - 1; i >= 0; i--) {
         console.log(i);
         let patient = patients[i];

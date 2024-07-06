@@ -221,6 +221,7 @@ main {
     justify-content: center;
     align-items: center;
     gap: 12px;
+    margin-top: 12vh;
 
     li {
         font-size: 30px;
@@ -260,6 +261,8 @@ main {
 
     list-style: none;
     padding: 5px;
+    margin-top: 12vh;
+
 
     .test-item {
         border: 2px solid var(--primary-blue-shade);
@@ -327,6 +330,8 @@ main {
     justify-content: center;
     align-items: center;
     gap: 12px;
+    margin-top: 12vh;
+
 
     li {
         font-size: 30px;
@@ -384,6 +389,7 @@ main {
 
 
     nav {
+        position: fixed;
         margin-left: calc(var(--aside-width) + 1vw);
         margin-top: 0px;
         height: 7vh;
@@ -436,7 +442,7 @@ main {
 .shrink-header {
 
     width: 100%;
-    position: absolute;
+    position: fixed;
 
     #user-name {
         display: none;
